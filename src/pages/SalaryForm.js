@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
 const SalaryForm = () => {
-    const [basicPay, setBasicPay] = useState(''); // useState er bhitor ja arg deya sheta default value oi state er
-    const [specialPay, setSpecialPay] = useState(''); // useState er bhitor ja arg deya sheta default value oi state er
+    const [basicPay, setBasicPay] = useState(''); 
+    const [specialPay, setSpecialPay] = useState(''); 
     const [formError, setFormError] = useState(null);
 
     const handleSubmit = async (e) => {
