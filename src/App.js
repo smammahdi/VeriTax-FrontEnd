@@ -5,7 +5,6 @@ import Header from './components/Header';
 import Main from './components/Main';
 import Footer from './components/Footer';
 import SalaryForm from './pages/SalaryForm';
-import SalaryForm2 from './pages/SalaryForm2';
 
 function App() {
     return (
@@ -14,12 +13,10 @@ function App() {
                 <Navbar />
                 <Header />
                 <Link to="/">Home</Link>
-                <Link to="/salary">Fill up Salary form</Link>
-                <Link to="/salary2">Salary2</Link>
+                <Link to="/salary">Salary</Link>
                 <Routes>
                     <Route path="/" element={<Main />} />
                     <Route path="/salary" element={<SalaryForm />} />
-                    <Route path="/salary2" element={<SalaryForm2 />} />
                 </Routes>
                 <Footer />
             </>
