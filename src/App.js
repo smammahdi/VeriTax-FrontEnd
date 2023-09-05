@@ -16,17 +16,17 @@ function App() {
                 <Header />
                 <Link to="/">Home</Link>
                 <Link to="/salary">Salary</Link>
+                <Link to="/basic-info">Basic Info</Link>
                 <Routes>
                     <Route path="/" element={<Main />} />
                     <Route path="/salary" element={<SalaryForm />} />
                     <Route path="/login" element={<Login />} />
+                    <Route path="/basic-info" element={<BasicInfo />} />
                 </Routes>
                 <Footer />
             </>
         </BrowserRouter>
     );
-                    <Route path="/basic-info" element={<BasicInfo />} />
-                <Link to="/basic-info">Basic Info</Link>
 }
 
 export default App;
