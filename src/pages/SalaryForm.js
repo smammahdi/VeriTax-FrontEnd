@@ -2,7 +2,12 @@ import { useState } from 'react';
 
 const SalaryForm = () => {
     const [basicPay, setBasicPay] = useState(''); // useState er bhitor ja arg deya sheta default value oi state er
-    const [specialPay, setSpecialPay] = useState(''); // useState er bhitor ja arg deya sheta default value oi state er
+    const [specialPay, setSpecialPay] = useState('');
+    const [conveyanceAllowance, setConveyanceAllowance] = useState('');
+    const [houseRentAllowance, setHouseRentAllowance] = useState('');
+    const [medicalAllowance, setMedicalAllowance] = useState('');
+    const [overtimeAllowance, setOvertimeAllowance] = useState('');
+
     const [formError, setFormError] = useState(null);
 
     const handleSubmit = async (e) => {
@@ -34,6 +39,43 @@ const SalaryForm = () => {
                     value={specialPay}
                     onChange={(e) => setSpecialPay(e.target.value)}
                 />
+
+                <label htmlFor="conveyanceAllowance">
+                    Conveyance Allowance:
+                </label>
+                <input
+                    type="text"
+                    id="conveyanceAllowance"
+                    value={conveyanceAllowance}
+                    onChange={(e) => setConveyanceAllowance(e.target.value)}
+                />
+
+                <label htmlFor="houseRentAllowance">
+                    House Rent Allowance:
+                </label>
+                <input
+                    type="text"
+                    id="houseRentAllowance"
+                    value={houseRentAllowance}
+                    onChange={(e) => setHouseRentAllowance(e.target.value)}
+                />
+
+                <label htmlFor="medicalAllowance">Medical Allowance:</label>
+                <input
+                    type="text"
+                    id="medicalAllowance"
+                    value={medicalAllowance}
+                    onChange={(e) => setMedicalAllowance(e.target.value)}
+                />
+
+                <label htmlFor="overtimeAllowance">Overtime Allowance:</label>
+                <input
+                    type="text"
+                    id="overtimeAllowance"
+                    value={overtimeAllowance}
+                    onChange={(e) => setOvertimeAllowance(e.target.value)}
+                />
+
                 <button>Submit</button>
 
                 {formError && <p className="error">{formError}</p>}
