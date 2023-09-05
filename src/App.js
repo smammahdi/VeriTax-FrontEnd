@@ -14,7 +14,7 @@ function App() {
                 <Navbar />
                 <Header />
                 <Link to="/">Home</Link>
-                <Link to="/salary">Fill up Salary form</Link>
+                <Link to="/salary">Salary</Link>
                 <Routes>
                     <Route path="/" element={<Main />} />
                     <Route path="/salary" element={<SalaryForm />} />
