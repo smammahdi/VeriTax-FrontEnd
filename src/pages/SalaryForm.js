@@ -4,6 +4,7 @@ import { useForm, useField, splitFormProps } from 'react-form';
 import { useTable } from 'react-table';
 import numeral from 'numeral'; // Import the currency formatting library
 import { useNavigate } from 'react-router-dom';
+import useAuth from '../hooks/useAuth';
 
 const CurrencyInput = (props) => {
     // console.log('currencyInput', props);
@@ -265,7 +266,7 @@ const FormStyles = styled.div`
     }
 `;
 const ReactForm = (props) => {
-    const { netTaxableAmount, setNetTaxableIncome } = props;
+    const { netTaxableAmount, setNetTaxableIncome, auth } = props;
     const navigate = useNavigate();
 
     const initialData = [
@@ -318,17 +319,59 @@ const ReactForm = (props) => {
     const handleFormSubmit = async (e) => {
         e.preventDefault(); // default action is reloading the page, so preventing it
 
-        console.log('form submitted', data);
+        try {
+            const description = {
+                username: auth.user,
+                basicPay: {
+                    amount: data[0].incomeAmount,
+                    exemption: data[0].exemptedAmount,
+                },
+                specialPay: {
+                    amount: data[1].incomeAmount,
+                    exemption: data[1].exemptedAmount,
+                },
+                conveyanceAllowance: {
+                    amount: data[2].incomeAmount,
+                    exemption: data[2].exemptedAmount,
+                },
+                houseRentAllowance: {
+                    amount: data[3].incomeAmount,
+                    exemption: data[3].exemptedAmount,
+                },
+                medicalAllowance: {
+                    amount: data[4].incomeAmount,
+                    exemption: data[4].exemptedAmount,
+                },
+                overtimeAllowance: {
+                    amount: data[5].incomeAmount,
+                    exemption: data[5].exemptedAmount,
+                },
+            };
+            const body = { description };
+            await fetch('', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(body),
+            });
+
+            console.log('form submitted', data);
+
+            // window.location = '/'; // refreshes the form input
+        } catch (error) {
+            console.error(error.message);
+        }
     };
 
-    const handleFormReset = async (e) => {
-        e.preventDefault(); // default action is reloading the page, so preventing it
+    // const handleFormReset = async (e) => {
+    //     e.preventDefault(); // default action is reloading the page, so preventing it
 
-        // setData(initialData);
+    //     // setData(initialData);
 
-        console.log('form reset', initialData);
-        navigate('/salary2');
-    };
+    //     console.log('form reset', initialData);
+    //     navigate('/salary2');
+    // };
 
     return (
         <FormStyles>
@@ -363,6 +406,7 @@ const Main = styled.main`
 `;
 const SalaryForm = () => {
     // console.log('Salary Form');
+    const { auth } = useAuth();
     const [netTaxableIncome, setNetTaxableIncome] = useState('');
     return (
         <Main>
@@ -370,6 +414,7 @@ const SalaryForm = () => {
             <ReactForm
                 netTaxableAmount={netTaxableIncome}
                 setNetTaxableIncome={setNetTaxableIncome}
+                auth={auth}
             />
             <p>Net Taxable Income: {netTaxableIncome}</p>
         </Main>
