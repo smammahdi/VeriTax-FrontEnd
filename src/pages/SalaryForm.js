@@ -6,6 +6,8 @@ import numeral from 'numeral'; // Import the currency formatting library
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 
+import '../css/salary.css';
+
 const CurrencyInput = (props) => {
     // console.log('currencyInput', props);
 
@@ -176,7 +178,7 @@ const ReactTable = React.memo((props) => {
 
     return (
         <>
-            <StyledTable {...getTableProps()}>
+            <table className="centred-table">
                 <thead>
                     {headerGroups.map((headerGroup) => (
                         <tr {...headerGroup.getHeaderGroupProps()}>
@@ -209,7 +211,7 @@ const ReactTable = React.memo((props) => {
                         </td>
                     </tr> */}
                 </tbody>
-            </StyledTable>
+            </table>
         </>
     );
 });
@@ -387,7 +389,9 @@ const ReactForm = (props) => {
                     <section>
                         {/* {isSubmitting ? 'Submitting...' : null} */}
                         {/* <button type="submit" disabled={!canSubmit}> */}
-                        <button>Submit Form</button>
+                        <button disabled style={{ width: '200px' }}>
+                            Submit Form
+                        </button>
                         {/* <button onClick={handleFormReset}>Reset Form</button> */}
                     </section>
                 </aside>
@@ -411,11 +415,13 @@ const SalaryForm = () => {
     return (
         <Main>
             <h1>Salary Form</h1>
-            <ReactForm
-                netTaxableAmount={netTaxableIncome}
-                setNetTaxableIncome={setNetTaxableIncome}
-                auth={auth}
-            />
+            <div className="center-container">
+                <ReactForm
+                    netTaxableAmount={netTaxableIncome}
+                    setNetTaxableIncome={setNetTaxableIncome}
+                    auth={auth}
+                />
+            </div>
             <p>Net Taxable Income: {netTaxableIncome}</p>
         </Main>
     );

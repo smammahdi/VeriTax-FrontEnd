@@ -1,0 +1,20 @@
+/* CSS for CenteredTable */
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* This ensures that the container takes up the full viewport height */
+}
+
+.centered-table {
+    margin: 0 auto; /* This horizontally centers the table within its parent */
+    /* Add any additional styling for your table here */
+    width: 100%;
+    border-collapse: separate; /* Use separate border model to control spacing */
+    border-spacing: 10px; /* Adjust the spacing value as needed */
+}
+
+.centered-table th {
+    background-color: #f0f0f0; /* Example header background color */
+    /* Add other header styles */
+}
