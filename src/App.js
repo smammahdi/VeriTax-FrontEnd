@@ -24,9 +24,9 @@ function App() {
                     <Route path="/login" element={<Login />} />
 
                     {/* <Route element={<RequireAuth />}> */}
-                    <Route path="/basicinfo" element={<BasicInfo />} />
-                    <Route path="/profileupdate" element={<ProfileUpdate />} />
-                    <Route path="/salary" element={<SalaryForm />} />
+                    <Route path="/basicinfo" element={ <RequireAuth><BasicInfo /></RequireAuth>} />
+                    <Route path="/profileupdate" element={<RequireAuth><ProfileUpdate /></RequireAuth>} />
+                    <Route path="/salary" element={<RequireAuth><SalaryForm /></RequireAuth>} />
                     {/* </Route> */}
                 </Route>
             </Routes>
