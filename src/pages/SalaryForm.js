@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useForm, useField, splitFormProps } from 'react-form';
 import { useTable } from 'react-table';
@@ -11,7 +11,7 @@ import '../css/salary.css';
 const CurrencyInput = (props) => {
     // console.log('currencyInput', props);
 
-    const { column, row, cell, updateData, data } = props;
+    const { column, row, cell, updateData, data, exemptionRates } = props;
     const [currencyValue, setCurrencyValue] = useState(cell.value);
 
     // function formatIndianStyle(number) {
@@ -33,6 +33,34 @@ const CurrencyInput = (props) => {
     //     return formattedNumber;
     // }
 
+    const calcExemption = (idx, income) => {
+        const calcSpecific = (ob) => {
+            return Math.min(ob.ceil, Math.floor((income * ob.rate) / 100));
+        };
+
+        let ret = 0;
+        if (idx === 0) {
+            // basic pay
+            ret = calcSpecific(exemptionRates.basicPay);
+        } else if (idx === 1) {
+            // special pay
+            ret = calcSpecific(exemptionRates.specialPay);
+        } else if (idx === 2) {
+            // conveyance allowance
+            ret = calcSpecific(exemptionRates.conveyanceAllowance);
+        } else if (idx === 3) {
+            // house rent allowance
+            ret = calcSpecific(exemptionRates.houseRentAllowance);
+        } else if (idx === 4) {
+            // medical allowance
+            ret = calcSpecific(exemptionRates.medicalAllowance);
+        } else if (idx === 5) {
+            // overtime allowance
+            ret = calcSpecific(exemptionRates.overtimeAllowance);
+        }
+        return ret;
+    };
+
     const handleCurrencyChange = (e) => {
         const inputValue = e.target.value;
 
@@ -41,15 +69,33 @@ const CurrencyInput = (props) => {
 
         // console.log(typeof parsedValue, typeof data[row.index].incomeAmount);
 
-        if (
-            column.id != 'exemptedAmount' ||
-            parsedValue <= data[row.index].incomeAmount
-        ) {
+        if (column.id === 'incomeAmount') {
             setCurrencyValue(parsedValue);
-
             updateData(row.index, column.id, parsedValue);
-            console.log('updateData', row.index, column.id, parsedValue);
+
+            // calculate exemption
+            const exemption = calcExemption(row.index, parsedValue);
+            console.log('exemption', row.index, parsedValue, exemption);
+            updateData(row.index, 'exemptedAmount', exemption);
+            console.log('data', data);
+        } else {
+            // exemptedAmount
+            if (parsedValue <= data[row.index].incomeAmount) {
+                setCurrencyValue(parsedValue);
+
+                updateData(row.index, column.id, parsedValue);
+            }
         }
+
+        // if (
+        //     column.id != 'exemptedAmount' ||
+        //     parsedValue <= data[row.index].incomeAmount
+        // ) {
+        //     setCurrencyValue(parsedValue);
+
+        //     updateData(row.index, column.id, parsedValue);
+        //     console.log('updateData', row.index, column.id, parsedValue);
+        // }
     };
 
     // const formatter = new Intl.NumberFormat('en-IN', {
@@ -112,7 +158,7 @@ function parseLocaleNumber(stringNumber, locale) {
 const ReactTable = React.memo((props) => {
     // console.log('ReactTable', props);
 
-    const { setNetTaxableIncome } = props;
+    const { setNetTaxableIncome, exemptionRates } = props;
 
     const columns = React.useMemo(
         () => [
@@ -164,7 +210,7 @@ const ReactTable = React.memo((props) => {
             })
         );
     };
-    const table = useTable({ columns, data, updateData });
+    const table = useTable({ columns, data, updateData, exemptionRates });
     const { getTableProps, headerGroups, rows, prepareRow } = table;
     const tableSum = rows.reduce(
         (sum, row) =>
@@ -268,7 +314,9 @@ const FormStyles = styled.div`
     }
 `;
 const ReactForm = (props) => {
-    const { netTaxableAmount, setNetTaxableIncome, auth } = props;
+    // console.log('ReactForm', props);
+    const { netTaxableAmount, setNetTaxableIncome, auth, exemptionRates } =
+        props;
     const navigate = useNavigate();
 
     const initialData = [
@@ -383,6 +431,7 @@ const ReactForm = (props) => {
                     data={data}
                     setData={setData}
                     initialData={initialData}
+                    exemptionRates={exemptionRates}
                 />
                 <br />
                 <aside>
@@ -412,6 +461,63 @@ const SalaryForm = () => {
     // console.log('Salary Form');
     const { auth } = useAuth();
     const [netTaxableIncome, setNetTaxableIncome] = useState('');
+    const [exemptionRates, setExemptionRates] = useState();
+
+    useEffect(() => {
+        const fetchExemptions = async () => {
+            try {
+                const description = {
+                    year: '2022',
+                };
+                const body = { description };
+                // const response = await fetch('', {
+                //     method: 'GET',
+                //     headers: {
+                //         'Content-Type': 'application/json',
+                //     },
+                //     body: JSON.stringify(body),
+                // });
+                // const exemptionRatesResponse = await response.json();
+
+                const exemptionRatesResponse = {
+                    basicPay: {
+                        ceil: 30000,
+                        rate: 0,
+                    },
+                    specialPay: {
+                        ceil: 20000,
+                        rate: 4.5,
+                    },
+                    conveyanceAllowance: {
+                        ceil: 20000,
+                        rate: 7.5,
+                    },
+                    houseRentAllowance: {
+                        ceil: 20000,
+                        rate: 15,
+                    },
+                    medicalAllowance: {
+                        ceil: 20000,
+                        rate: 30,
+                    },
+                    overtimeAllowance: {
+                        ceil: 20000,
+                        rate: 12,
+                    },
+                };
+
+                setExemptionRates(exemptionRatesResponse);
+                // console.log('exemptionRates', exemptionRates);
+            } catch (error) {
+                console.error(error.message);
+            }
+        };
+
+        fetchExemptions();
+    }, []);
+
+    // console.log('exemptionRates', exemptionRates);
+
     return (
         <Main>
             <h1>Salary Form</h1>
@@ -420,6 +526,7 @@ const SalaryForm = () => {
                     netTaxableAmount={netTaxableIncome}
                     setNetTaxableIncome={setNetTaxableIncome}
                     auth={auth}
+                    exemptionRates={exemptionRates}
                 />
             </div>
             <p>Net Taxable Income: {netTaxableIncome}</p>
