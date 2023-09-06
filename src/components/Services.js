@@ -8,7 +8,7 @@ const Services = () => {
     const handleClickForm = async (e) => {
         e.preventDefault(); // default action is reloading the page, so preventing it
 
-        navigate('/salary'); // redirect to the salary page
+        navigate('/basicinfo'); // redirect to the salary page
     };
 
     return (

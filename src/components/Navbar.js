@@ -1,7 +1,10 @@
 import { Link } from "react-scroll";
 import Profile from "../components/Profile";
+import useAuth from "../hooks/useAuth";
 
 function Navbar() {
+  const { auth } = useAuth();
+
   document.addEventListener("scroll", function (e) {
     if (window.screen.width < 768 && window.scrollY > 690) {
       const gotop = document.querySelector(".gotop");
@@ -94,10 +97,15 @@ function Navbar() {
                 Contact
               </Link>
             </li>
-            <li>
-              <Profile />
-            </li>
-            
+
+            {!auth?.user && (
+              <>
+                <li>
+                  <Profile />
+                </li>
+              </>
+            )}
+
           </ul>
           <div className="button" onClick={openBar}>
             <div className="burger"></div>

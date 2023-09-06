@@ -1,6 +1,8 @@
 import { useRef, useState, useEffect } from 'react';
 import useAuth from '../hooks/useAuth';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import Navbar from '../components/Navbar';
+import '../register.css';
 
 import axios from '../api/axios';
 const LOGIN_URL = '/auth';
@@ -61,13 +63,22 @@ const Login = () => {
 
     };
     return (
-   
-        <section>
+        <>
+        <Navbar />
+      <div style={{marginTop:'15rem',width:'100%',height:'10px'}} className="about-scroll"></div>
+
+      <div className="container about">
+        <div className="row">
+          <div className="col-md-6 text-center">
+            <img alt="about" src={process.env.PUBLIC_URL + "/img/about.gif"} className="img-fluid" />
+          </div>
+          <div className="col-md-6">
+          <section>
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-            <h1>Login</h1>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="username">Username:</label>
-                <input
+            <h2 className="main-title about-h2">LOG IN</h2>
+            <form className="form-register-login" onSubmit={handleSubmit}>
+                <label className="label-register-login" htmlFor="username">Username:</label>
+                <input className="input-register-login"
                     type="text"
                     id="username"
                     ref={userRef}
@@ -76,8 +87,8 @@ const Login = () => {
                     value={user}
                     required
                 />
-                <label htmlFor="password">Password:</label>
-                <input
+                <label className="label-register-login" htmlFor="password">Password:</label>
+                <input className="input-register-login"
                     type="password"
                     id="password"
                     onChange={(e) => setPwd(e.target.value)}
@@ -86,14 +97,21 @@ const Login = () => {
                 />
                 <button>Login</button>
             </form>
+
             <p>
-                Need an Account?<br />
-                <span className="line">
+              <h1 className="already-registered-text" > Need an Account? </h1>
+                {/* <span className="line"> */}
                     {/*put router link here*/}
-                    <a href="#">Sign Up</a>
-                </span>
+                    <a href="/register"><h1 className="already-registered-text"> Register</h1></a>
+                {/* </span> */}
             </p>
         </section>
+
+          </div>
+        </div>
+      </div>
+    </>
+   
 
     );
   };
