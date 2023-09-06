@@ -1,10 +1,11 @@
 import { useState } from 'react';
 
-const BasicInfo = () => {
+const ProfileUpdate = () => {
     const [fullName, setFullName] = useState(''); // useState er bhitor ja arg deya sheta default value oi state er
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [tin, setTin] = useState('');
     const [nid, setNid] = useState('');
     const [contactNumber, setContactNumber] = useState('');
@@ -20,87 +21,83 @@ const BasicInfo = () => {
     const handleSubmit = async (e) => {
         e.preventDefault(); // default action is reloading the page, so preventing it
 
-        // if (
-        //     !fullName ||
-        //     !username ||
-        //     !email ||
-        //     !password ||
-        //     !tin ||
-        //     !nid ||
-        //     !contactNumber ||
-        //     !gender ||
-        //     !dateOfBirth ||
-        //     !presentAddress ||
-        //     !permanentAddress ||
-        //     !taxZone ||
-        //     !taxCircle ||
-        //     !maritalStatus
-        // ) {
-        //     setFormError('Please fill in all the fields correctly');
-        //     return;
-        // }
+        if (
+            !email ||
+            !password ||
+            !confirmPassword ||
+            !contactNumber ||
+            !presentAddress ||
+            !maritalStatus
+        ) {
+            setFormError('Please fill in all the appropriate fields correctly');
+            return;
+        }
 
-        // console.log('submitted');
+        console.log('submitted');
     };
 
     return (
         <div>
-            <form id="basicInfoForm" onSubmit={handleSubmit}>
+            <form id="profileUpdateForm" onSubmit={handleSubmit}>
                 <label htmlFor="fullName">Full Name:</label>
                 <input
                     type="text"
                     id="fullName" // id is the id of the input field, also fetched by htmlFor
                     value={fullName} // value is the value of the input field
+                    readOnly
                     // onChange={(e) => setFullName(e.target.value)}
-                    readonly
                 />
                 <label htmlFor="username">Username:</label>
                 <input
                     type="text"
                     id="username"
                     value={username}
+                    readOnly
                     // onChange={(e) => setUsername(e.target.value)}
-                    readonly
                 />
                 <label htmlFor="email">E-mail:</label>
                 <input
                     type="email"
                     id="email"
                     value={email}
-                    // onChange={(e) => setEmail(e.target.value)}
-                    readonly
+                    onChange={(e) => setEmail(e.target.value)}
                 />
                 <label htmlFor="password">Password:</label>
                 <input
                     type="password"
                     id="password"
                     value={password}
-                    // onChange={(e) => setPassword(e.target.value)}
-                    readonly
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+                <label htmlFor="confirmPassword">Confirm Password:</label>
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
                 />
                 <label htmlFor="tin">TIN:</label>
                 <input
                     type="number"
                     id="tin"
                     value={tin}
-                    // onChange={(e) => setTin(e.target.value)}
                     readonly
+                    // onChange={(e) => setTin(e.target.value)}
                 />
                 <label htmlFor="nid">NID:</label>
                 <input
                     type="number"
                     id="nid"
                     value={nid}
-                    // onChange={(e) => setNid(e.target.value)}
                     readonly
+                    // onChange={(e) => setNid(e.target.value)}
                 />
                 <label htmlFor="contactNumber">Contact Number:</label>
                 <input
                     type="tel"
                     id="contactNumber"
                     value={contactNumber}
-                    // onChange={(e) => setContactNumber(e.target.value)}
-                    readonly
+                    onChange={(e) => setContactNumber(e.target.value)}
                 />
                 <label htmlFor="gender">Gender:</label>
                 <br />
@@ -108,10 +105,10 @@ const BasicInfo = () => {
                     id="gender"
                     name="genderOptions"
                     value={gender}
-                    // onChange={(e) => setGender(e.target.value)}
                     readonly
                     disabled
-                    form="basicInfoForm"
+                    // onChange={(e) => setGender(e.target.value)}
+                    form="profileUpdateForm"
                 >
                     <option value="male">Male</option>
                     <option value="female">Female</option>
@@ -123,41 +120,39 @@ const BasicInfo = () => {
                     type="date"
                     id="dateOfBirth"
                     value={dateOfBirth}
-                    // onChange={(e) => setDateOfBirth(e.target.value)}
                     readonly
-                    disabled
+                    // onChange={(e) => setDateOfBirth(e.target.value)}
                 />
                 <label htmlFor="presentAddress">Present Address:</label>
                 <input
                     type="text"
                     id="presentAddress"
                     value={presentAddress}
-                    // onChange={(e) => setPresentAddress(e.target.value)}
-                    readonly
+                    onChange={(e) => setPresentAddress(e.target.value)}
                 />
                 <label htmlFor="permanentAddress">Permanent Address:</label>
                 <input
                     type="text"
                     id="permanentAddress"
                     value={permanentAddress}
-                    // onChange={(e) => setPermanentAddress(e.target.value)}
                     readonly
+                    // onChange={(e) => setPermanentAddress(e.target.value)}
                 />
                 <label htmlFor="taxZone">Tax Zone:</label>
                 <input
                     type="tel"
                     id="taxZone"
                     value={taxZone}
-                    // onChange={(e) => setTaxZone(e.target.value)}
                     readonly
+                    // onChange={(e) => setTaxZone(e.target.value)}
                 />
                 <label htmlFor="taxCircle">Tax Circle:</label>
                 <input
                     type="tel"
                     id="taxCircle"
                     value={taxCircle}
-                    // onChange={(e) => setTaxCircle(e.target.value)}
                     readonly
+                    // onChange={(e) => setTaxCircle(e.target.value)}
                 />
                 <label htmlFor="maritalStatus">Marital Status:</label>
                 <br />
@@ -165,10 +160,8 @@ const BasicInfo = () => {
                     id="maritalStatus"
                     name="maritalStatusOptions"
                     value={maritalStatus}
-                    // onChange={(e) => setMaritalStatus(e.target.value)}
-                    readonly
-                    disabled
-                    form="basicInfoForm"
+                    onChange={(e) => setMaritalStatus(e.target.value)}
+                    form="profileUpdateForm"
                 >
                     <option value="married">Married</option>
                     <option value="unmarried">Unmarried</option>
@@ -176,11 +169,11 @@ const BasicInfo = () => {
                     <option value="other">Prefer not to say</option>
                 </select>
                 <br />
-                <button>Edit</button>
+                <button>Submit</button>
                 {formError && <p className="error">{formError}</p>}
             </form>
         </div>
     );
 };
 
-export default BasicInfo;
+export default ProfileUpdate;
