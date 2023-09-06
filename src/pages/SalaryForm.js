@@ -13,6 +13,10 @@ const CurrencyInput = (props) => {
 
     const { column, row, cell, updateData, data, exemptionRates } = props;
     const [currencyValue, setCurrencyValue] = useState(cell.value);
+    const cellPosition = {
+        x: row.index,
+        y: column.id,
+    };
 
     // function formatIndianStyle(number) {
     //     const strNumber = String(number); // Convert the number to a string
@@ -66,6 +70,13 @@ const CurrencyInput = (props) => {
 
         // Parse the input value using numeral
         const parsedValue = numeral(inputValue).value() || 0; // Default to 0 if parsing fails
+        console.log('parsedValue', inputValue, parsedValue);
+        console.log(
+            'formatter',
+            new Intl.NumberFormat('en-IN', {
+                maximumSignificantDigits: 3,
+            }).format(parsedValue)
+        );
 
         // console.log(typeof parsedValue, typeof data[row.index].incomeAmount);
 
@@ -106,9 +117,11 @@ const CurrencyInput = (props) => {
     return (
         <input
             type="text"
-            value={new Intl.NumberFormat('en-IN', {
-                maximumSignificantDigits: 3,
-            }).format(currencyValue)} // Format the displayed value
+            // value={currencyValue} // Format the displayed value
+            value={data[cellPosition.x][cellPosition.y]}
+            // value={new Intl.NumberFormat('en-IN', {
+            //     maximumSignificantDigits: 3,
+            // }).format(data[cellPosition.x][cellPosition.y])} // Format the displayed value
             // value={formatter.format(currencyValue)} // Format the displayed value
             onChange={handleCurrencyChange}
         />
@@ -179,11 +192,12 @@ const ReactTable = React.memo((props) => {
             {
                 Header: 'Net Taxable Income (Tk.)',
                 accessor: (row) =>
-                    new Intl.NumberFormat('en-IN', {
-                        maximumSignificantDigits: 3,
-                    }).format(
-                        Number(row.incomeAmount) - Number(row.exemptedAmount)
-                    ),
+                    // new Intl.NumberFormat('en-IN', {
+                    //     maximumSignificantDigits: 3,
+                    // }).format(
+                    //     Number(row.incomeAmount) - Number(row.exemptedAmount)
+                    // ),
+                    Number(row.incomeAmount) - Number(row.exemptedAmount),
                 id: 'netTaxableAmount',
             },
         ],
@@ -212,9 +226,13 @@ const ReactTable = React.memo((props) => {
     };
     const table = useTable({ columns, data, updateData, exemptionRates });
     const { getTableProps, headerGroups, rows, prepareRow } = table;
+    // const tableSum = rows.reduce(
+    //     (sum, row) =>
+    //         sum + parseLocaleNumber(row.values.netTaxableAmount, 'en-IN'),
+    //     0
+    // );
     const tableSum = rows.reduce(
-        (sum, row) =>
-            sum + parseLocaleNumber(row.values.netTaxableAmount, 'en-IN'),
+        (sum, row) => sum + Number(row.values.netTaxableAmount),
         0
     );
     // console.log('setNetTaxableIncome', tableSum);
