@@ -174,14 +174,15 @@ const Register = () => {
                     Must match the first password input field.
                 </p>
 
-                <button disabled={!validName || !validPwd || !validMatch ? true : false}>Sign Up</button>
+                <button disabled={!validName || !validPwd || !validMatch ? true : false}>Register</button>
             </form>
+        
             <p>
-                Already registered?<br />
-                <span className="line">
+              <h1 className="already-registered-text" > Already registered? </h1>
+                {/* <span className="line"> */}
                     {/*put router link here*/}
-                    <a href="#">Sign In</a>
-                </span>
+                    <a href="#"><h1 className="already-registered-text"> Log In</h1></a>
+                {/* </span> */}
             </p>
         </section>
 
@@ -191,7 +192,7 @@ const Register = () => {
     </>
 
        
-    )
+    );
 }
 
 export default Register
