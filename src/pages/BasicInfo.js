@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 
 const BasicInfo = () => {
     const [fullName, setFullName] = useState(''); // useState er bhitor ja arg deya sheta default value oi state er
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [year, setYear] = useState('');
     const [tin, setTin] = useState('');
     const [nid, setNid] = useState('');
     const [contactNumber, setContactNumber] = useState('');
@@ -16,6 +17,21 @@ const BasicInfo = () => {
     const [taxCircle, setTaxCircle] = useState('');
     const [maritalStatus, setMaritalStatus] = useState('');
     const [formError, setFormError] = useState(null);
+
+    const getBasicInfos = async () => {
+        try {
+            const response = await fetch(''); // fetch is by default a GET request
+            const jsonData = await response.json();
+
+            // setBasicInfos(jsonData);
+        } catch (error) {
+            console.error(error.message);
+        }
+    };
+
+    useEffect(() => {
+        getBasicInfos();
+    }, []); // 2nd arg empty array deyar karone ekbari req pathay
 
     const handleSubmit = async (e) => {
         e.preventDefault(); // default action is reloading the page, so preventing it
@@ -76,6 +92,14 @@ const BasicInfo = () => {
                     id="password"
                     value={password}
                     // onChange={(e) => setPassword(e.target.value)}
+                    readonly
+                />
+                <label htmlFor="year">Year:</label>
+                <input
+                    type="number"
+                    id="year"
+                    value={year}
+                    // onChange={(e) => setYear(e.target.value)}
                     readonly
                 />
                 <label htmlFor="tin">TIN:</label>

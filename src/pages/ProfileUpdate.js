@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 
 const ProfileUpdate = () => {
     const [fullName, setFullName] = useState(''); // useState er bhitor ja arg deya sheta default value oi state er
@@ -6,6 +6,7 @@ const ProfileUpdate = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [year, setYear] = useState('');
     const [tin, setTin] = useState('');
     const [nid, setNid] = useState('');
     const [contactNumber, setContactNumber] = useState('');
@@ -75,6 +76,13 @@ const ProfileUpdate = () => {
                     id="confirmPassword"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+                <label htmlFor="year">Year:</label>
+                <input
+                    type="number"
+                    id="year"
+                    value={year}
+                    onChange={(e) => setYear(e.target.value)}
                 />
                 <label htmlFor="tin">TIN:</label>
                 <input

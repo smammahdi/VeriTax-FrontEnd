@@ -19,19 +19,18 @@ function App() {
             <Header />
             <Routes>
                 <Route path="/" element={<Layout />}>
-
                     <Route path="/" element={<Main />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/login" element={<Login />} />
 
                     {/* <Route element={<RequireAuth />}> */}
                     <Route path="/basicinfo" element={<BasicInfo />} />
+                    <Route path="/profileupdate" element={<ProfileUpdate />} />
                     <Route path="/salary" element={<SalaryForm />} />
                     {/* </Route> */}
                 </Route>
             </Routes>
         </>
-
     );
 }
 
