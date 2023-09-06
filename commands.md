@@ -7,3 +7,4 @@ npm install --save numeral --legacy-peer-deps
 npm i --save @fortawesome/fontawesome-svg-core --legacy-peer-deps
 npm install --save @fortawesome/free-solid-svg-icons --legacy-peer-deps
 npm install --save @fortawesome/react-fontawesome --legacy-peer-deps
+npm i react-transition-group --legacy-peer-deps

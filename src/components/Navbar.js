@@ -1,4 +1,5 @@
 import { Link } from "react-scroll";
+import Profile from "../components/Profile";
 
 function Navbar() {
   document.addEventListener("scroll", function (e) {
@@ -93,6 +94,10 @@ function Navbar() {
                 Contact
               </Link>
             </li>
+            <li>
+              <Profile />
+            </li>
+            
           </ul>
           <div className="button" onClick={openBar}>
             <div className="burger"></div>

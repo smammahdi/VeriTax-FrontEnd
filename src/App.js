@@ -9,8 +9,9 @@ import Login from './pages/Login';
 import Layout from './components/Layout';
 import Register from './pages/Register';
 import RequireAuth from './components/RequireAuth';
-
 import BasicInfo from './pages/BasicInfo';
+import ProfileUpdate from './pages/ProfileUpdate';
+
 function App() {
     return (
         <>
@@ -18,19 +19,18 @@ function App() {
             <Header />
             <Routes>
                 <Route path="/" element={<Layout />}>
-
                     <Route path="/" element={<Main />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/login" element={<Login />} />
 
                     {/* <Route element={<RequireAuth />}> */}
                     <Route path="/basicinfo" element={<BasicInfo />} />
+                    <Route path="/profileupdate" element={<ProfileUpdate />} />
                     <Route path="/salary" element={<SalaryForm />} />
                     {/* </Route> */}
                 </Route>
             </Routes>
         </>
-
     );
 }
 

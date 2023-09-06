@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from '../api/axios';
+import Navbar from "../components/Navbar";
+
+import '../register.css';
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -86,10 +89,19 @@ const Register = () => {
     }
 
     return (
+        <>
+        <Navbar />
+      <div style={{marginTop:'15rem',width:'100%',height:'10px'}} className="about-scroll"></div>
 
-        <section>
+      <div className="container about">
+        <div className="row">
+          <div className="col-md-6 text-center">
+            <img alt="about" src={process.env.PUBLIC_URL + "/img/about.gif"} className="img-fluid" />
+          </div>
+          <div className="col-md-6">
+          <section>
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-            <h1>Register</h1>
+            <h2 className="main-title about-h2">REGISTER</h2>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="username">
                     Username:
@@ -173,6 +185,12 @@ const Register = () => {
             </p>
         </section>
 
+          </div>
+        </div>
+      </div>
+    </>
+
+       
     )
 }
 
