@@ -6,26 +6,31 @@ import Main from './components/Main';
 import Footer from './components/Footer';
 import SalaryForm from './pages/SalaryForm';
 import Login from './pages/Login';
+import Layout from './components/Layout';
+import Register from './pages/Register';
+import RequireAuth from './components/RequireAuth';
 
 import BasicInfo from './pages/BasicInfo';
 function App() {
     return (
-        <BrowserRouter>
-            <>
-                <Navbar />
-                <Header />
-                <Link to="/">Home</Link>
-                <Link to="/salary">Salary</Link>
-                <Link to="/basic-info">Basic Info</Link>
-                <Routes>
+        <>
+            <Navbar />
+            <Header />
+            <Routes>
+                <Route path="/" element={<Layout />}>
+
                     <Route path="/" element={<Main />} />
-                    <Route path="/salary" element={<SalaryForm />} />
+                    <Route path="/register" element={<Register />} />
                     <Route path="/login" element={<Login />} />
-                    <Route path="/basic-info" element={<BasicInfo />} />
-                </Routes>
-                <Footer />
-            </>
-        </BrowserRouter>
+
+                    {/* <Route element={<RequireAuth />}> */}
+                    <Route path="/basicinfo" element={<BasicInfo />} />
+                    <Route path="/salary" element={<SalaryForm />} />
+                    {/* </Route> */}
+                </Route>
+            </Routes>
+        </>
+
     );
 }
 
