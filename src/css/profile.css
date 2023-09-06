@@ -15,6 +15,12 @@ code {
     --speed: 500ms;
 }
 
+.right-container {
+    display: flex;
+    align-items: right;
+    /* position: relative; */
+}
+
 ul {
     list-style-type: none;
     margin: 0;
@@ -28,8 +34,12 @@ ul {
 .profile-item {
     width: calc(var(--nav-size) * 0.8);
     display: flex;
+    margin-left: auto;
     align-items: center;
     justify-content: center;
+    position: absolute;
+    top: 10px;
+    right: 50px;
 }
 
 /* Icon Button */

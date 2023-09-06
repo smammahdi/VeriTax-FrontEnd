@@ -2,6 +2,7 @@ import '../css/profile.css';
 import React from 'react';
 import { useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 import { ReactComponent as ProfileIcon } from '../icons/profile.svg';
 import { ReactComponent as SettingsIcon } from '../icons/settings.svg';
@@ -23,6 +24,7 @@ function ProfileItem(props) {
     const [open, setOpen] = useState(false);
 
     return (
+        <div className='right-container'>
         <li className="profile-item">
             <a href="#" className="icon-button" onClick={() => setOpen(!open)}>
                 {props.icon}
@@ -30,6 +32,7 @@ function ProfileItem(props) {
 
             {open && props.children}
         </li>
+        </div>
     )
 }
 
@@ -50,14 +53,17 @@ function DropdownMenu() {
         <div className="dropdown">
             <CSSTransition in={activeMenu === 'main'} unmountOnExit timeout={500} classNames="menu-primary">
                 <div className="menu">
-                <DropdownItem leftIcon={<ProfileItemIcon />}>
-                    My Profile</DropdownItem>
-                <DropdownItem 
-                    leftIcon={<SettingsIcon />}> Settings
-                </DropdownItem>
-                <DropdownItem 
-                    leftIcon={<LogoutIcon />}> Log Out
-                </DropdownItem>
+                    <Link to="/profileupdate">
+                    <DropdownItem
+                        leftIcon={<ProfileItemIcon />}>My Profile</DropdownItem>
+                    </Link>
+                    {/* <DropdownItem
+                        leftIcon={<SettingsIcon />}> Settings
+                    </DropdownItem> */}
+                    
+                    <DropdownItem
+                        leftIcon={<LogoutIcon />}> Log Out
+                    </DropdownItem>
                 </div>
             </CSSTransition>
 
