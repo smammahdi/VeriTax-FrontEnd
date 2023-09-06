@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 const CurrencyInput = (props) => {
     // console.log('currencyInput', props);
 
-    const { column, row, cell, updateData } = props;
+    const { column, row, cell, updateData, data } = props;
     const [currencyValue, setCurrencyValue] = useState(cell.value);
 
     // function formatIndianStyle(number) {
@@ -36,9 +36,17 @@ const CurrencyInput = (props) => {
         // Parse the input value using numeral
         const parsedValue = numeral(inputValue).value() || 0; // Default to 0 if parsing fails
 
-        setCurrencyValue(parsedValue);
+        // console.log(typeof parsedValue, typeof data[row.index].incomeAmount);
 
-        updateData(row.index, column.id, parsedValue);
+        if (
+            column.id != 'exemptedAmount' ||
+            parsedValue <= data[row.index].incomeAmount
+        ) {
+            setCurrencyValue(parsedValue);
+
+            updateData(row.index, column.id, parsedValue);
+            console.log('updateData', row.index, column.id, parsedValue);
+        }
     };
 
     // const formatter = new Intl.NumberFormat('en-IN', {
@@ -139,7 +147,7 @@ const ReactTable = React.memo((props) => {
     // console.log('initialData', initialData);
     // console.log('test', typeof initialData);
     // console.log('data1', data);
-    const resetData = () => setData(initialData);
+    // const resetData = () => setData(initialData);
     const updateData = (rowIndex, columnID, value) => {
         setData((oldData) =>
             oldData.map((row, index) => {
