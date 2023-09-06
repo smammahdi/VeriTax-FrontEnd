@@ -6,6 +6,7 @@ import { CSSTransition } from 'react-transition-group';
 import { ReactComponent as ProfileIcon } from '../icons/profile.svg';
 import { ReactComponent as SettingsIcon } from '../icons/settings.svg';
 import { ReactComponent as LogoutIcon } from '../icons/logout.svg';
+import { ReactComponent as ProfileItemIcon } from '../icons/profile-item.svg';
 
 
 function Profile() {
@@ -49,9 +50,13 @@ function DropdownMenu() {
         <div className="dropdown">
             <CSSTransition in={activeMenu === 'main'} unmountOnExit timeout={500} classNames="menu-primary">
                 <div className="menu">
-                <DropdownItem>My Profile</DropdownItem>
+                <DropdownItem leftIcon={<ProfileItemIcon />}>
+                    My Profile</DropdownItem>
                 <DropdownItem 
-                    leftIcon={<SettingsIcon />}>
+                    leftIcon={<SettingsIcon />}> Settings
+                </DropdownItem>
+                <DropdownItem 
+                    leftIcon={<LogoutIcon />}> Log Out
                 </DropdownItem>
                 </div>
             </CSSTransition>

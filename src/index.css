@@ -730,6 +730,7 @@ form {
     margin: 0 auto;
     border-radius: 6px;
 }
+
 form input,
 form textarea {
     display: block;
@@ -739,6 +740,7 @@ form textarea {
     border: 1px solid #ccc;
     margin: 10px 0 20px 0;
 }
+
 form button {
     background: var(--primary);
     color: #fff;
@@ -748,6 +750,7 @@ form button {
     font-family: 'Poppins';
     cursor: pointer;
 }
+
 form select {
     width: 100%;
     padding: 6px;
@@ -758,10 +761,12 @@ form select {
     font-family: 'Poppins';
     cursor: pointer;
 }
-/*extra*/
+
+
+
 input,
-input[type='radio'] + label,
-input[type='checkbox'] + label:before,
+input[type='radio']+label,
+input[type='checkbox']+label:before,
 select option,
 select {
     width: 100%;
@@ -776,20 +781,25 @@ select {
     transition: 0.35s ease-in-out;
     transition: all 0.35s ease-in-out;
 }
+
 input:focus {
     outline: 0;
     border-color: #bd8200;
 }
-input:focus + .input-icon i {
+
+input:focus+.input-icon i {
     color: #f0a500;
 }
-input:focus + .input-icon:after {
+
+input:focus+.input-icon:after {
     border-right-color: #f0a500;
 }
+
 input[type='radio'] {
     display: none;
 }
-input[type='radio'] + label,
+
+input[type='radio']+label,
 select {
     display: inline-block;
     width: 50%;
@@ -797,34 +807,41 @@ select {
     float: left;
     border-radius: 0;
 }
-input[type='radio'] + label:first-of-type {
+
+input[type='radio']+label:first-of-type {
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
 }
-input[type='radio'] + label:last-of-type {
+
+input[type='radio']+label:last-of-type {
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
 }
-input[type='radio'] + label i {
+
+input[type='radio']+label i {
     padding-right: 0.4em;
 }
-input[type='radio']:checked + label,
-input:checked + label:before,
+
+input[type='radio']:checked+label,
+input:checked+label:before,
 select:focus,
 select:active {
     background-color: #4859f1;
     color: #fff;
     border-color: #3832e7;
 }
+
 input[type='checkbox'] {
     display: none;
 }
-input[type='checkbox'] + label {
+
+input[type='checkbox']+label {
     position: relative;
     display: block;
     padding-left: 1.6em;
 }
-input[type='checkbox'] + label:before {
+
+input[type='checkbox']+label:before {
     position: absolute;
     top: 0.2em;
     left: 0;
@@ -834,7 +851,8 @@ input[type='checkbox'] + label:before {
     padding: 0;
     content: '';
 }
-input[type='checkbox'] + label:after {
+
+input[type='checkbox']+label:after {
     position: absolute;
     top: 0.45em;
     left: 0.2em;
@@ -844,47 +862,59 @@ input[type='checkbox'] + label:after {
     font-family: FontAwesome;
     content: '\f00c';
 }
-input:checked + label:after {
+
+input:checked+label:after {
     opacity: 1;
 }
+
 select {
     height: 3.4em;
     line-height: 2;
 }
+
 select:first-of-type {
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
 }
+
 select:last-of-type {
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
 }
+
 select:focus,
 select:active {
     outline: 0;
 }
+
 select option {
     background-color: #e7ecf3;
     color: #000000;
 }
+
 .input-group {
     margin-bottom: 1em;
     zoom: 1;
 }
+
 .input-group:before,
 .input-group:after {
     content: '';
     display: table;
 }
+
 .input-group:after {
     clear: both;
 }
+
 .input-group-icon {
     position: relative;
 }
+
 .input-group-icon input {
     padding-left: 4.4em;
 }
+
 .input-group-icon .input-icon {
     position: absolute;
     top: 0;
@@ -895,6 +925,7 @@ select option {
     text-align: center;
     pointer-events: none;
 }
+
 .input-group-icon .input-icon:after {
     position: absolute;
     top: 0.6em;
@@ -909,15 +940,11 @@ select option {
     transition: 0.35s ease-in-out;
     transition: all 0.35s ease-in-out;
 }
+
 .input-group-icon .input-icon i {
     -webkit-transition: 0.35s ease-in-out;
     -moz-transition: 0.35s ease-in-out;
     -o-transition: 0.35s ease-in-out;
     transition: 0.35s ease-in-out;
     transition: all 0.35s ease-in-out;
-}
-
-
-/* Register */
-
-
+} 
