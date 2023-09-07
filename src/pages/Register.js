@@ -96,7 +96,7 @@ const Register = () => {
             <div className="container about">
                 <div className="row">
                     <div className="col-md-6 text-center">
-                        <img alt="about" src={process.env.PUBLIC_URL + "/img/about.gif"} className="img-fluid" />
+                        <img alt="about" src={process.env.PUBLIC_URL + "/img/register.gif"} className="img-fluid" />
                     </div>
                     <div className="col-md-6">
                         <section>
