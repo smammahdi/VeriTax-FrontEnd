@@ -1,6 +1,9 @@
 import '../css/profile.css';
 import React from 'react';
 import { useState } from 'react';
+import { useNavigate} from "react-router-dom";
+import { useContext } from "react";
+import AuthContext from "../context/AuthProvider";
 import { CSSTransition } from 'react-transition-group';
 import { BrowserRouter, Routes, Route, Link, useNavigate } from "react-router-dom";
 
@@ -13,6 +16,8 @@ import axios from '../api/axios';
 import useAuth from '../hooks/useAuth';
 
 function Profile() {
+
+
     return (
         <div className="profile">
             <ProfileItem icon={<ProfileIcon />} >
@@ -41,6 +46,9 @@ function ProfileItem(props) {
 function DropdownMenu() {
     const [activeMenu, setActiveMenu] = useState('main');
 
+    const { setAuth } = useContext(AuthContext);
+    const navigate = useNavigate();
+
     function DropdownItem(props) {
         return (
             <a href="#" className="menu-item">
@@ -50,27 +58,6 @@ function DropdownMenu() {
             </a>
         )
     }
-    const navigate = useNavigate();
-    const {auth, setAuth} = useAuth();
-
-    const logout = async (e) => {
-        console.log("logout attempt");
-        try {
-            const response = await axios.post('/logout',
-                JSON.stringify({ }),
-                {
-                    headers: { 'Content-Type': 'application/json' },
-                    withCredentials: true
-                }
-            );
-            setAuth({ });
-            navigate('/', { replace: true });
-        } catch (err) {
-            console.log(err);
-            setAuth({ });
-            navigate('/', { replace: true });
-        }
-    };
 
     return (
         <div className="dropdown">
@@ -84,10 +71,9 @@ function DropdownMenu() {
                         leftIcon={<SettingsIcon />}> Settings
                     </DropdownItem> */}
                     
-                    <DropdownItem 
-                        leftIcon={<LogoutIcon />}> 
+                    <DropdownItem leftIcon={<LogoutIcon />}> 
                         <div onClick={logout}>
-                            Log Out
+                                Log Out
                         </div>
                     </DropdownItem>
                 </div>

@@ -70,7 +70,7 @@ const Login = () => {
       <div className="container about">
         <div className="row">
           <div className="col-md-6 text-center">
-            <img alt="about" src={process.env.PUBLIC_URL + "/img/about.gif"} className="img-fluid" />
+            <img alt="about" src={process.env.PUBLIC_URL + "/img/login.gif"} className="img-fluid" />
           </div>
           <div className="col-md-6">
           <section>
