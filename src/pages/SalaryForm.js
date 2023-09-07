@@ -169,9 +169,12 @@ function parseLocaleNumber(stringNumber, locale) {
 }
 
 const ReactTable = React.memo((props) => {
-    // console.log('ReactTable', props);
+    console.log('ReactTable', props);
+    console.log('test2', props.netTaxableAmount);
 
     const { setNetTaxableIncome, exemptionRates } = props;
+
+    const { netTaxableAmount } = props;
 
     const columns = React.useMemo(
         () => [
@@ -267,13 +270,18 @@ const ReactTable = React.memo((props) => {
                             </tr>
                         );
                     })}
-                    {/* <tr>
-                        <td colSpan={4}>
-                            <button type="button" onClick={resetData}>
+                    <tr>
+                        {/* <td colSpan={4}> */}
+                        <td>
+                            {/* <button type="button" onClick={resetData}>
                                 Reset Form
-                            </button>
+                            </button> */}
+                            Net Taxable Amount
                         </td>
-                    </tr> */}
+                        <td></td>
+                        <td></td>
+                        <td>{props.netTaxableAmount}</td>
+                    </tr>
                 </tbody>
             </table>
         </>
@@ -332,10 +340,14 @@ const FormStyles = styled.div`
     }
 `;
 const ReactForm = (props) => {
-    // console.log('ReactForm', props);
-    const { netTaxableAmount, setNetTaxableIncome, auth, exemptionRates } =
-        props;
-    const navigate = useNavigate();
+    console.log('ReactForm', props);
+    console.log('test', props.netTaxableAmount);
+    const { setNetTaxableIncome, auth, exemptionRates } = props;
+    // const navigate = useNavigate();
+
+    // const { netTaxableAmount } = props;
+
+    // const netTaxableAmount = props.netTaxableAmount;
 
     const initialData = [
         {
@@ -450,6 +462,7 @@ const ReactForm = (props) => {
                     setData={setData}
                     initialData={initialData}
                     exemptionRates={exemptionRates}
+                    netTaxableAmount={props.netTaxableAmount}
                 />
                 <br />
                 <aside>
@@ -483,11 +496,12 @@ const SalaryForm = () => {
 
     useEffect(async () => {
         try {
-            const response = await axios.get('/exemption',
+            const response = await axios.get(
+                '/exemption',
                 JSON.stringify({ year: '2022' }),
                 {
                     headers: { 'Content-Type': 'application/json' },
-                    withCredentials: true
+                    withCredentials: true,
                 }
             );
 
@@ -511,7 +525,7 @@ const SalaryForm = () => {
                     exemptionRates={exemptionRates}
                 />
             </div>
-            <p>Net Taxable Income: {netTaxableIncome}</p>
+            {/* <p>Net Taxable Income: {netTaxableIncome}</p> */}
         </Main>
     );
 };
