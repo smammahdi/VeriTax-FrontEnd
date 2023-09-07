@@ -116,7 +116,10 @@ const CurrencyInput = (props) => {
                     setFormError('');
                 }
             } else {
-                setFormError('Exemption cannot exceed Income');
+                // setFormError('Exemption cannot exceed Income');
+                setFormError(
+                    'Warning: Claimed exemption exceeds allowable exemption'
+                );
             }
         }
 
