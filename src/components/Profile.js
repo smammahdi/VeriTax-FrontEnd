@@ -5,13 +5,15 @@ import { useNavigate} from "react-router-dom";
 import { useContext } from "react";
 import AuthContext from "../context/AuthProvider";
 import { CSSTransition } from 'react-transition-group';
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, useNavigate } from "react-router-dom";
 
 import { ReactComponent as ProfileIcon } from '../icons/profile.svg';
 import { ReactComponent as SettingsIcon } from '../icons/settings.svg';
 import { ReactComponent as LogoutIcon } from '../icons/logout.svg';
 import { ReactComponent as ProfileItemIcon } from '../icons/profile-item.svg';
 
+import axios from '../api/axios';
+import useAuth from '../hooks/useAuth';
 
 function Profile() {
 
@@ -57,12 +59,6 @@ function DropdownMenu() {
         )
     }
 
-    const logout = async () => {
-        setAuth({});
-        // navigate('/login');
-        console.log("logout successful");
-    }
-
     return (
         <div className="dropdown">
             <CSSTransition in={activeMenu === 'main'} unmountOnExit timeout={500} classNames="menu-primary">
@@ -74,12 +70,12 @@ function DropdownMenu() {
                     {/* <DropdownItem
                         leftIcon={<SettingsIcon />}> Settings
                     </DropdownItem> */}
-                    <Link onClick={logout} to="/login">
-                    <DropdownItem 
-                        leftIcon={<LogoutIcon />}> 
-                        Log Out
+                    
+                    <DropdownItem leftIcon={<LogoutIcon />}> 
+                        <div onClick={logout}>
+                                Log Out
+                        </div>
                     </DropdownItem>
-                    </Link>
                 </div>
             </CSSTransition>
 

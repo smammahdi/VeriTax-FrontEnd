@@ -42,7 +42,7 @@ function Navbar() {
               spy={true}
               smooth={true}
               duration={1000}
-              to="headerbg"
+              to="/"
               style={{ cursor: "pointer" }}
             >
               VeriTax
@@ -56,7 +56,7 @@ function Navbar() {
                 spy={true}
                 smooth={true}
                 duration={1000}
-                to="headerbg"
+                to="/"
               >
                 Home
               </Link>
@@ -98,7 +98,7 @@ function Navbar() {
               </Link>
             </li>
 
-            {!auth?.user && (
+            {auth?.user && (
               <>
                 <li>
                   <Profile />

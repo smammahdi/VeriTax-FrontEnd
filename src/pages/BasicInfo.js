@@ -28,7 +28,7 @@ const BasicInfo = () => {
         if (!fetched) {
             console.log('fetching...');
             try {
-                let res = await axios.get('/basicinfo',
+                let res = await axios.post('/getbasicinfo',
                     JSON.stringify({}),
                     {
                         headers: { 'Content-Type': 'application/json' },
