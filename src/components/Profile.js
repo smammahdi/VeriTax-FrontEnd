@@ -1,12 +1,10 @@
 import '../css/profile.css';
 import React from 'react';
 import { useState } from 'react';
-import { useNavigate} from "react-router-dom";
 import { useContext } from "react";
 import AuthContext from "../context/AuthProvider";
 import { CSSTransition } from 'react-transition-group';
 import { BrowserRouter, Routes, Route, Link, useNavigate } from "react-router-dom";
-
 import { ReactComponent as ProfileIcon } from '../icons/profile.svg';
 import { ReactComponent as SettingsIcon } from '../icons/settings.svg';
 import { ReactComponent as LogoutIcon } from '../icons/logout.svg';
@@ -58,6 +56,27 @@ function DropdownMenu() {
             </a>
         )
     }
+
+    const logout = async (e) => {
+
+        try {
+            const response = await axios.post('/logout',
+                JSON.stringify({  }),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
+                }
+            );
+            setAuth({  });
+            navigate('/login', { replace: true });
+
+        } catch (err) {
+            console.log(err);
+            setAuth({  });
+            navigate('/login', { replace: true });
+        }
+
+    };
 
     return (
         <div className="dropdown">
