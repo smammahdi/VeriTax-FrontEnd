@@ -193,6 +193,14 @@ const ReactTable = React.memo((props) => {
                 Cell: TableInput,
             },
             {
+                Header: 'Exemption Rate (%)',
+                accessor: 'exemptionRate',
+            },
+            {
+                Header: 'Exemption Ceil (Tk.)',
+                accessor: 'exemptionCeil',
+            },
+            {
                 Header: 'Net Taxable Income (Tk.)',
                 accessor: (row) =>
                     // new Intl.NumberFormat('en-IN', {
@@ -280,6 +288,8 @@ const ReactTable = React.memo((props) => {
                         </td>
                         <td></td>
                         <td></td>
+                        <td></td>
+                        <td></td>
                         <td>{props.netTaxableAmount}</td>
                     </tr>
                 </tbody>
@@ -342,45 +352,92 @@ const FormStyles = styled.div`
 const ReactForm = (props) => {
     console.log('ReactForm', props);
     console.log('test', props.netTaxableAmount);
+
     const { setNetTaxableIncome, auth, exemptionRates } = props;
+    console.log('test3', props.exemptionRates);
     // const navigate = useNavigate();
 
     // const { netTaxableAmount } = props;
 
     // const netTaxableAmount = props.netTaxableAmount;
 
-    const initialData = [
-        {
-            payAndAllowance: 'Basic Pay',
-            incomeAmount: '0',
-            exemptedAmount: '0',
-        },
-        {
-            payAndAllowance: 'Special Pay',
-            incomeAmount: '0',
-            exemptedAmount: '0',
-        },
-        {
-            payAndAllowance: 'Conveyance Allowance',
-            incomeAmount: '0',
-            exemptedAmount: '0',
-        },
-        {
-            payAndAllowance: 'House Rent Allowance',
-            incomeAmount: '0',
-            exemptedAmount: '0',
-        },
-        {
-            payAndAllowance: 'Medical Allowance',
-            incomeAmount: '0',
-            exemptedAmount: '0',
-        },
-        {
-            payAndAllowance: 'Overtime Allowance',
-            incomeAmount: '0',
-            exemptedAmount: '0',
-        },
-    ];
+    const initialData = React.useMemo(
+        () => [
+            {
+                payAndAllowance: 'Basic Pay',
+                incomeAmount: '0',
+                exemptedAmount: '0',
+                exemptionRate: props.exemptionRates
+                    ? props.exemptionRates.basicPay.rate
+                    : 'N/A',
+                exemptionCeil: props.exemptionRates
+                    ? props.exemptionRates.basicPay.ceil
+                    : 'N/A',
+            },
+            {
+                payAndAllowance: 'Special Pay',
+                incomeAmount: '0',
+                exemptedAmount: '0',
+                exemptionRate: props.exemptionRates
+                    ? props.exemptionRates.specialPay.rate
+                    : 'N/A',
+                exemptionCeil: props.exemptionRates
+                    ? props.exemptionRates.specialPay.ceil
+                    : 'N/A',
+            },
+            {
+                payAndAllowance: 'Conveyance Allowance',
+                incomeAmount: '0',
+                exemptedAmount: '0',
+                exemptionRate: props.exemptionRates
+                    ? props.exemptionRates.conveyanceAllowance.rate
+                    : 'N/A',
+                exemptionCeil: props.exemptionRates
+                    ? props.exemptionRates.conveyanceAllowance.ceil
+                    : 'N/A',
+            },
+            {
+                payAndAllowance: 'House Rent Allowance',
+                incomeAmount: '0',
+                exemptedAmount: '0',
+                exemptionRate: props.exemptionRates
+                    ? props.exemptionRates.houseRentAllowance.rate
+                    : 'N/A',
+                exemptionCeil: props.exemptionRates
+                    ? props.exemptionRates.houseRentAllowance.ceil
+                    : 'N/A',
+            },
+            {
+                payAndAllowance: 'Medical Allowance',
+                incomeAmount: '0',
+                exemptedAmount: '0',
+                exemptionRate: props.exemptionRates
+                    ? props.exemptionRates.medicalAllowance.rate
+                    : 'N/A',
+                exemptionCeil: props.exemptionRates
+                    ? props.exemptionRates.medicalAllowance.ceil
+                    : 'N/A',
+            },
+            {
+                payAndAllowance: 'Overtime Allowance',
+                incomeAmount: '0',
+                exemptedAmount: '0',
+                exemptionRate: props.exemptionRates
+                    ? props.exemptionRates.overtimeAllowance.rate
+                    : 'N/A',
+                exemptionCeil: props.exemptionRates
+                    ? props.exemptionRates.overtimeAllowance.ceil
+                    : 'N/A',
+            },
+        ],
+        []
+    );
+
+    // useEffect(() => {
+    //     const buildInitialData = () => {
+
+    //     }
+    // }, []);
 
     const [data, setData] = useState(initialData);
 
@@ -509,10 +566,38 @@ const SalaryForm = () => {
             setExemptionRates(response.data);
         } catch (error) {
             console.error(error.message);
+            const exemptionRatesResponse = {
+                basicPay: {
+                    ceil: 30000,
+                    rate: 0,
+                },
+                specialPay: {
+                    ceil: 20000,
+                    rate: 4.5,
+                },
+                conveyanceAllowance: {
+                    ceil: 20000,
+                    rate: 7.5,
+                },
+                houseRentAllowance: {
+                    ceil: 20000,
+                    rate: 15,
+                },
+                medicalAllowance: {
+                    ceil: 20000,
+                    rate: 30,
+                },
+                overtimeAllowance: {
+                    ceil: 20000,
+                    rate: 12,
+                },
+            };
+
+            setExemptionRates(exemptionRatesResponse);
         }
     }, []);
 
-    console.log('exemptionRates', exemptionRates);
+    console.log('exemptionRates in salary form', exemptionRates);
 
     return (
         <Main>
