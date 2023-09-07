@@ -2,13 +2,15 @@ import '../css/profile.css';
 import React from 'react';
 import { useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, useNavigate } from "react-router-dom";
 
 import { ReactComponent as ProfileIcon } from '../icons/profile.svg';
 import { ReactComponent as SettingsIcon } from '../icons/settings.svg';
 import { ReactComponent as LogoutIcon } from '../icons/logout.svg';
 import { ReactComponent as ProfileItemIcon } from '../icons/profile-item.svg';
 
+import axios from '../api/axios';
+import useAuth from '../hooks/useAuth';
 
 function Profile() {
     return (
@@ -48,6 +50,27 @@ function DropdownMenu() {
             </a>
         )
     }
+    const navigate = useNavigate();
+    const {auth, setAuth} = useAuth();
+
+    const logout = async (e) => {
+        console.log("logout attempt");
+        try {
+            const response = await axios.post('/logout',
+                JSON.stringify({ }),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
+                }
+            );
+            setAuth({ });
+            navigate('/', { replace: true });
+        } catch (err) {
+            console.log(err);
+            setAuth({ });
+            navigate('/', { replace: true });
+        }
+    };
 
     return (
         <div className="dropdown">
@@ -61,8 +84,11 @@ function DropdownMenu() {
                         leftIcon={<SettingsIcon />}> Settings
                     </DropdownItem> */}
                     
-                    <DropdownItem
-                        leftIcon={<LogoutIcon />}> Log Out
+                    <DropdownItem 
+                        leftIcon={<LogoutIcon />}> 
+                        <div onClick={logout}>
+                            Log Out
+                        </div>
                     </DropdownItem>
                 </div>
             </CSSTransition>

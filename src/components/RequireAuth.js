@@ -1,16 +1,30 @@
-import { useLocation, Navigate, Outlet } from "react-router-dom";
+import { useLocation, Navigate, Outlet, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import { useEffect, useState } from "react";
+import axios from '../api/axios';
 
 const RequireAuth = ({ children }) => {
-    const { auth } = useAuth();
+    const { auth, setAuth } = useAuth();
     const location = useLocation();
+    const  navigate  = useNavigate();
 
-    return (
-        auth?.user
-            ? children
-            : <Navigate to="/login" state={{ from: location }} replace />
+    useEffect(async () => {
+        try {
+            const response = await axios.post('/auth',
+                JSON.stringify({}),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
+                }
+            );
+            setAuth({user: response.data.id});
+        } catch (err) {
+            setAuth({});
+            navigate('/login');
+        }
+    }, []);
 
-    );
+    return children;
 }
 
 export default RequireAuth;
