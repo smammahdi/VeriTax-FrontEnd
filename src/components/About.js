@@ -11,9 +11,9 @@ function About() {
           <div className="col-md-6">
             <h2 className="main-title about-h2">ABOUT</h2>
             <p className="main-p">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
-              quam purus, ullamcorper id risus eu, consectetur consectetur
-              purus. Etiam sagittis in eros ac sollicitudin.
+            VeriTax is your trusted partner in simplifying the complex world of income tax returns. Our mission is to make tax assessment hassle-free and efficient, putting the power of automation at your fingertips. 
+            <br/><br/>Experience the future of income tax assessment with VeriTax. Our automated solutions are tailored to meet your specific needs. Say goodbye to tax-related stress and hello to a seamless, efficient, and accurate tax assessment process.
+            <br/><br/> Join VeriTax today and take control of your financial future.
             </p>
           </div>
         </div>
