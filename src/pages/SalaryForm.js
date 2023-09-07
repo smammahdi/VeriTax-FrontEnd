@@ -11,7 +11,15 @@ import '../css/salary.css';
 const CurrencyInput = (props) => {
     // console.log('currencyInput', props);
 
-    const { column, row, cell, updateData, data, exemptionRates } = props;
+    const {
+        column,
+        row,
+        cell,
+        updateData,
+        data,
+        exemptionRates,
+        setFormError,
+    } = props;
     const [currencyValue, setCurrencyValue] = useState(cell.value);
     const cellPosition = {
         x: row.index,
@@ -89,12 +97,26 @@ const CurrencyInput = (props) => {
             console.log('exemption', row.index, parsedValue, exemption);
             updateData(row.index, 'exemptedAmount', exemption);
             console.log('data', data);
+            setFormError('');
         } else {
             // exemptedAmount
             if (parsedValue <= data[row.index].incomeAmount) {
                 setCurrencyValue(parsedValue);
 
                 updateData(row.index, column.id, parsedValue);
+
+                if (
+                    parsedValue >
+                    calcExemption(row.index, data[row.index].incomeAmount)
+                ) {
+                    setFormError(
+                        'Warning: Claimed exemption exceeds allowable exemption'
+                    );
+                } else {
+                    setFormError('');
+                }
+            } else {
+                setFormError('Exemption cannot exceed Income');
             }
         }
 
@@ -235,7 +257,16 @@ const ReactTable = React.memo((props) => {
             })
         );
     };
-    const table = useTable({ columns, data, updateData, exemptionRates });
+
+    const [formError, setFormError] = useState('');
+
+    const table = useTable({
+        columns,
+        data,
+        updateData,
+        exemptionRates,
+        setFormError,
+    });
     const { getTableProps, headerGroups, rows, prepareRow } = table;
     // const tableSum = rows.reduce(
     //     (sum, row) =>
@@ -291,6 +322,9 @@ const ReactTable = React.memo((props) => {
                         <td></td>
                         <td></td>
                         <td>{props.netTaxableAmount}</td>
+                    </tr>
+                    <tr>
+                        <td colSpan={6}>{formError}</td>
                     </tr>
                 </tbody>
             </table>
@@ -568,7 +602,7 @@ const SalaryForm = () => {
             console.error(error.message);
             const exemptionRatesResponse = {
                 basicPay: {
-                    ceil: 30000,
+                    ceil: 20000,
                     rate: 0,
                 },
                 specialPay: {
