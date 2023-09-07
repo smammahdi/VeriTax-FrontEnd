@@ -1,9 +1,12 @@
 import { Link } from "react-scroll";
 import Profile from "../components/Profile";
 import useAuth from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+
 
 function Navbar() {
   const { auth } = useAuth();
+  const navigate = useNavigate();
 
   document.addEventListener("scroll", function (e) {
     if (window.screen.width < 768 && window.scrollY > 690) {
@@ -33,6 +36,10 @@ function Navbar() {
     bar.classList.toggle("opened");
   }
 
+  function goHome() {
+       navigate("/");
+  }
+
   return (
     <nav className="navbar">
       <div className="container">
@@ -51,7 +58,7 @@ function Navbar() {
           <ul className="bar">
             <li>
               <Link
-                onClick={openBar}
+                onClick={goHome}
                 activeClass="active"
                 spy={true}
                 smooth={true}
