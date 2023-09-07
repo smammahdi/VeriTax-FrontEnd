@@ -369,10 +369,10 @@ const ReactForm = (props) => {
                 exemptedAmount: '0',
                 exemptionRate: props.exemptionRates
                     ? props.exemptionRates.basicPay.rate
-                    : 'N/A',
+                    : '0',
                 exemptionCeil: props.exemptionRates
                     ? props.exemptionRates.basicPay.ceil
-                    : 'N/A',
+                    : '20000',
             },
             {
                 payAndAllowance: 'Special Pay',
@@ -380,10 +380,10 @@ const ReactForm = (props) => {
                 exemptedAmount: '0',
                 exemptionRate: props.exemptionRates
                     ? props.exemptionRates.specialPay.rate
-                    : 'N/A',
+                    : '4.5',
                 exemptionCeil: props.exemptionRates
                     ? props.exemptionRates.specialPay.ceil
-                    : 'N/A',
+                    : '20000',
             },
             {
                 payAndAllowance: 'Conveyance Allowance',
@@ -391,10 +391,10 @@ const ReactForm = (props) => {
                 exemptedAmount: '0',
                 exemptionRate: props.exemptionRates
                     ? props.exemptionRates.conveyanceAllowance.rate
-                    : 'N/A',
+                    : '7.5',
                 exemptionCeil: props.exemptionRates
                     ? props.exemptionRates.conveyanceAllowance.ceil
-                    : 'N/A',
+                    : '20000',
             },
             {
                 payAndAllowance: 'House Rent Allowance',
@@ -402,10 +402,10 @@ const ReactForm = (props) => {
                 exemptedAmount: '0',
                 exemptionRate: props.exemptionRates
                     ? props.exemptionRates.houseRentAllowance.rate
-                    : 'N/A',
+                    : '15',
                 exemptionCeil: props.exemptionRates
                     ? props.exemptionRates.houseRentAllowance.ceil
-                    : 'N/A',
+                    : '20000',
             },
             {
                 payAndAllowance: 'Medical Allowance',
@@ -413,10 +413,10 @@ const ReactForm = (props) => {
                 exemptedAmount: '0',
                 exemptionRate: props.exemptionRates
                     ? props.exemptionRates.medicalAllowance.rate
-                    : 'N/A',
+                    : '30',
                 exemptionCeil: props.exemptionRates
                     ? props.exemptionRates.medicalAllowance.ceil
-                    : 'N/A',
+                    : '20000',
             },
             {
                 payAndAllowance: 'Overtime Allowance',
@@ -424,10 +424,10 @@ const ReactForm = (props) => {
                 exemptedAmount: '0',
                 exemptionRate: props.exemptionRates
                     ? props.exemptionRates.overtimeAllowance.rate
-                    : 'N/A',
+                    : '12',
                 exemptionCeil: props.exemptionRates
                     ? props.exemptionRates.overtimeAllowance.ceil
-                    : 'N/A',
+                    : '20000',
             },
         ],
         []
