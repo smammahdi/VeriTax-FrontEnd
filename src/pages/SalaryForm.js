@@ -5,7 +5,7 @@ import { useTable } from 'react-table';
 import numeral from 'numeral'; // Import the currency formatting library
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
-
+import axios from '../api/axios';
 import '../css/salary.css';
 
 const CurrencyInput = (props) => {
@@ -481,60 +481,24 @@ const SalaryForm = () => {
     const [netTaxableIncome, setNetTaxableIncome] = useState('');
     const [exemptionRates, setExemptionRates] = useState();
 
-    useEffect(() => {
-        const fetchExemptions = async () => {
-            try {
-                const description = {
-                    year: '2022',
-                };
-                const body = { description };
-                // const response = await fetch('', {
-                //     method: 'GET',
-                //     headers: {
-                //         'Content-Type': 'application/json',
-                //     },
-                //     body: JSON.stringify(body),
-                // });
-                // const exemptionRatesResponse = await response.json();
+    useEffect(async () => {
+        try {
+            const response = await axios.get('/exemption',
+                JSON.stringify({ year: '2022' }),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
+                }
+            );
 
-                const exemptionRatesResponse = {
-                    basicPay: {
-                        ceil: 30000,
-                        rate: 0,
-                    },
-                    specialPay: {
-                        ceil: 20000,
-                        rate: 4.5,
-                    },
-                    conveyanceAllowance: {
-                        ceil: 20000,
-                        rate: 7.5,
-                    },
-                    houseRentAllowance: {
-                        ceil: 20000,
-                        rate: 15,
-                    },
-                    medicalAllowance: {
-                        ceil: 20000,
-                        rate: 30,
-                    },
-                    overtimeAllowance: {
-                        ceil: 20000,
-                        rate: 12,
-                    },
-                };
-
-                setExemptionRates(exemptionRatesResponse);
-                // console.log('exemptionRates', exemptionRates);
-            } catch (error) {
-                console.error(error.message);
-            }
-        };
-
-        fetchExemptions();
+            console.log(response.data);
+            setExemptionRates(response.data);
+        } catch (error) {
+            console.error(error.message);
+        }
     }, []);
 
-    // console.log('exemptionRates', exemptionRates);
+    console.log('exemptionRates', exemptionRates);
 
     return (
         <Main>

@@ -48,6 +48,7 @@ const BasicInfo = () => {
                 setTaxCircle(res.data.taxCircle);
                 setGender(res.data.gender);
                 setMaritalStatus(res.data.maritalStatus);
+                setContactNumber(res.data.contactNumber);
             } catch (err) {
                 console.log(err);
                 if (err.response?.status === 401) {
