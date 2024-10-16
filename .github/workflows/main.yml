@@ -1,0 +1,30 @@
+name: Notify deps2.dev of New Version
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  notify-deps2-dev:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Read version from version.txt
+      id: read_version
+      run: |
+        echo "VERSION=$(cat version.txt)" >> $GITHUB_ENV
+
+    - name: Notify deps2.dev
+      run: |
+        curl -X POST http://127.0.0.1:5000/CUSTOM_SYS/CUSTOM_PACKAGE/newVersion \
+        -H "Content-Type: application/json" \
+        -d '{
+          "versionKey": {
+            "system": "CUSTOM_SYS",
+            "name": "CUSTOM_PACKAGE",
+            "version": "'${{ env.VERSION }}'"
+          }
+        }'
