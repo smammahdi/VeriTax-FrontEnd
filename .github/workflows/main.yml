@@ -17,14 +17,14 @@ jobs:
       run: |
         echo "VERSION=$(cat version.txt)" >> $GITHUB_ENV
 
-    - name: Notify deps2.dev
-      run: |
-        curl -X POST http://127.0.0.1:5000/CUSTOM_SYS/CUSTOM_PACKAGE/newVersion \
-        -H "Content-Type: application/json" \
-        -d '{
-          "versionKey": {
-            "system": "CUSTOM_SYS",
-            "name": "CUSTOM_PACKAGE",
-            "version": "'${{ env.VERSION }}'"
-          }
-        }'
+    # - name: Notify deps2.dev
+    #   run: |
+    #     curl -X POST http://127.0.0.1:5000/CUSTOM_SYS/CUSTOM_PACKAGE/newVersion \
+    #     -H "Content-Type: application/json" \
+    #     -d '{
+    #       "versionKey": {
+    #         "system": "CUSTOM_SYS",
+    #         "name": "CUSTOM_PACKAGE",
+    #         "version": "'${{ env.VERSION }}'"
+    #       }
+    #     }'
